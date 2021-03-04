@@ -5,7 +5,6 @@ import CartContext from 'context/CartContext';
 
 export const Cart = () => {
   const { checkout } = useContext(CartContext);
-  console.log(checkout);
   let totlalQuantity = 0;
   if (checkout) {
     checkout.lineItems.map(lineItem => (totlalQuantity += lineItem.quantity));
@@ -14,10 +13,9 @@ export const Cart = () => {
     <CartWrapper>
       <FaShoppingCart size="1.5em" />
       <span>
-        {' '}
-        {totlalQuantity} items {checkout?.totalPrice || '0.00'}
+        {totlalQuantity} {totlalQuantity === 1 ? 'item' : 'items'}{' '}
+        {checkout?.totalPrice || '0.00'} kr
       </span>{' '}
-      <span>{checkout?.currencyCode}</span>
     </CartWrapper>
   );
 };

@@ -1,15 +1,18 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'gatsby-image';
 import { ImageGalleryWrapper } from './styles';
 import ImageThumbnail from './ImageThumbnail';
 
 export function ImageGallery({ selectedVariantImageId, images }) {
-  const initImagesThumnail = images.find(({id}) => id === selectedVariantImageId) || images[0];
-  const [activeImageThumbnail, setActiveImageThumbnail] = useState(initImagesThumnail);
+  const initImagesThumnail =
+    images.find(({ id }) => id === selectedVariantImageId) || images[0];
+  const [activeImageThumbnail, setActiveImageThumbnail] = useState(
+    initImagesThumnail
+  );
 
   useEffect(() => {
-    setActiveImageThumbnail(initImagesThumnail)
-  }, [selectedVariantImageId,setActiveImageThumbnail,initImagesThumnail])
+    setActiveImageThumbnail(initImagesThumnail);
+  }, [selectedVariantImageId, setActiveImageThumbnail, initImagesThumnail]);
 
   const handelClick = image => {
     setActiveImageThumbnail(image);

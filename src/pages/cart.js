@@ -1,6 +1,10 @@
 import React from 'react';
-import { Layout } from 'components';
+import { Layout, CartContents } from 'components';
 
-export const Cart = () => {
-  return <Layout>Cart Pager</Layout>;
-};
+const CartPage = () => (
+  <Layout>
+    <CartContents />
+  </Layout>
+);
+
+export default CartPage;
