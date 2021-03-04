@@ -4,6 +4,7 @@ import { CartContextProvider } from './src/context/CartContext';
 import { GlobalStyle } from './src/components/globalStyles';
 
 export const wrapRootElement = ({ element }) => (
+  //TODO
   <ProductContextProvider>
     <CartContextProvider>{element}</CartContextProvider>
   </ProductContextProvider>
