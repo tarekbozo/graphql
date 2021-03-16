@@ -3,7 +3,7 @@ import Image from 'gatsby-image';
 import { ImageGalleryWrapper } from './styles';
 import ImageThumbnail from './ImageThumbnail';
 
-export function ImageGallery({ selectedVariantImageId, images }) {
+export const ImageGallery = ({ selectedVariantImageId, images }) => {
   const initImagesThumnail =
     images.find(({ id }) => id === selectedVariantImageId) || images[0];
   const [activeImageThumbnail, setActiveImageThumbnail] = useState(
@@ -37,4 +37,4 @@ export function ImageGallery({ selectedVariantImageId, images }) {
       </div>
     </ImageGalleryWrapper>
   );
-}
+};
