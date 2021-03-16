@@ -3,7 +3,7 @@ import Image from 'gatsby-image';
 import { ImageGalleryWrapper } from './styles';
 import ImageThumbnail from './ImageThumbnail';
 
-export function ImageGallery({ selectedVariantImageId, images }) {
+export function Imagegallery({ selectedVariantImageId, images }) {
   const [activeImageThumbnail, setActiveImageThumbnail] = React.useState(
     images.find(({ id }) => id === selectedVariantImageId) || images[0]
   );

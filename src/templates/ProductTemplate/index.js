@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { graphql } from 'gatsby';
 import {
   Layout,
-  ImageGallery,
+  Imagegallery,
   ProductQuantityAdder,
   Button,
   SEO,
@@ -94,7 +94,7 @@ export default function ProductTemplate(props) {
           )}
         </div>
         <div>
-          <ImageGallery
+          <Imagegallery
             selectedVariantImageId={selectedVariant?.image.id}
             images={props.data.shopifyProduct.images}
           />
