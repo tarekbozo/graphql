@@ -1,6 +1,6 @@
 export * from './SEO';
 export * from './Layout';
-export * from './Imagegallery';
+export * from './Gallery';
 export * from './ProductQuantityAdder';
 export * from './Input';
 export * from './Header';
