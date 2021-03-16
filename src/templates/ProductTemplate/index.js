@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/no-onchange */
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { graphql } from 'gatsby';
 import {
   Layout,
   ImageGallery,
-  ProductQantityAdder,
+  ProductQuantityAdder,
   Button,
   SEO,
 } from 'components';
@@ -21,24 +21,28 @@ export const query = graphql`
   }
 `;
 
-export default function ProductTemplate({ data }) {
-  const { getProductById } = useContext(CartContext);
-  const [product, setProduct] = useState(null);
-  const [selectedVariant, setSelectedVariant] = useState(null);
+export default function ProductTemplate(props) {
+  const { getProductById } = React.useContext(CartContext);
+  const [product, setProduct] = React.useState(null);
+  const [selectedVariant, setSelectedVariant] = React.useState(null);
   const { search, origin, pathname } = useLocation();
   const variantId = queryString.parse(search).variant;
 
   useEffect(() => {
-    (async () => {
-      const result = await getProductById(data.shopifyProduct.shopifyId);
+    getProductById(props.data.shopifyProduct.shopifyId).then(result => {
       setProduct(result);
       setSelectedVariant(
         result.variants.find(({ id }) => id === variantId) || result.variants[0]
       );
-    })();
-  }, [getProductById, setProduct, data.shopifyProduct.shopifyId, variantId]);
+    });
+  }, [
+    getProductById,
+    setProduct,
+    props.data.shopifyProduct.shopifyId,
+    variantId,
+  ]);
 
-  const handelVariantChange = e => {
+  const handleVariantChange = e => {
     const newVariant = product?.variants.find(v => v.id === e.target.value);
     setSelectedVariant(newVariant);
     navigate(
@@ -52,14 +56,14 @@ export default function ProductTemplate({ data }) {
   return (
     <Layout>
       <SEO
-        description={data.shopifyProduct.description}
-        title={data.shopifyProduct.title}
+        description={props.data.shopifyProduct.description}
+        title={props.data.shopifyProduct.title}
       />
       <Button onClick={() => navigate(-1)}>Back to products</Button>
       <Grid>
         <div>
-          <h1>{data.shopifyProduct.title}</h1>
-          <p>{data.shopifyProduct.description}</p>
+          <h1>{props.data.shopifyProduct.title}</h1>
+          <p>{props.data.shopifyProduct.description}</p>
           {product?.availableForSale && !!selectedVariant && (
             <>
               {product?.variants.length > 1 && (
@@ -67,7 +71,7 @@ export default function ProductTemplate({ data }) {
                   <strong>Variant</strong>
                   <select
                     value={selectedVariant.id}
-                    onChange={handelVariantChange}
+                    onChange={handleVariantChange}
                   >
                     {product?.variants.map(v => (
                       <option key={v.id} value={v.id}>
@@ -79,11 +83,8 @@ export default function ProductTemplate({ data }) {
               )}
               {!!selectedVariant && (
                 <>
-                  <Price>
-                    {selectedVariant?.priceV2.currencyCode}
-                    {selectedVariant?.priceV2.amount}
-                  </Price>
-                  <ProductQantityAdder
+                  <Price>£{selectedVariant.price}</Price>
+                  <ProductQuantityAdder
                     available={selectedVariant.available}
                     variantId={selectedVariant.id}
                   />
@@ -95,7 +96,7 @@ export default function ProductTemplate({ data }) {
         <div>
           <ImageGallery
             selectedVariantImageId={selectedVariant?.image.id}
-            images={data.shopifyProduct.images}
+            images={props.data.shopifyProduct.images}
           />
         </div>
       </Grid>

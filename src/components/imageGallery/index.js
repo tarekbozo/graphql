@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Image from 'gatsby-image';
 import { ImageGalleryWrapper } from './styles';
 import ImageThumbnail from './ImageThumbnail';
 
-export const ImageGallery = ({ selectedVariantImageId, images }) => {
-  const initImagesThumnail =
-    images.find(({ id }) => id === selectedVariantImageId) || images[0];
-  const [activeImageThumbnail, setActiveImageThumbnail] = useState(
-    initImagesThumnail
+export function ImageGallery({ selectedVariantImageId, images }) {
+  const [activeImageThumbnail, setActiveImageThumbnail] = React.useState(
+    images.find(({ id }) => id === selectedVariantImageId) || images[0]
   );
 
-  useEffect(() => {
-    setActiveImageThumbnail(initImagesThumnail);
-  }, [selectedVariantImageId, setActiveImageThumbnail, initImagesThumnail]);
+  React.useEffect(() => {
+    setActiveImageThumbnail(
+      images.find(({ id }) => id === selectedVariantImageId) || images[0]
+    );
+  }, [selectedVariantImageId, images, setActiveImageThumbnail]);
 
-  const handelClick = image => {
+  const handleClick = image => {
     setActiveImageThumbnail(image);
   };
 
@@ -29,7 +29,7 @@ export const ImageGallery = ({ selectedVariantImageId, images }) => {
             <ImageThumbnail
               key={image.id}
               isActive={activeImageThumbnail.id === image.id}
-              onClick={handelClick}
+              onClick={handleClick}
               image={image}
             />
           );
@@ -37,4 +37,4 @@ export const ImageGallery = ({ selectedVariantImageId, images }) => {
       </div>
     </ImageGalleryWrapper>
   );
-};
+}

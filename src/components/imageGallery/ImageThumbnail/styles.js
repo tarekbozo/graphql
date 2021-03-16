@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ImageThumnailWrapper = styled.div`
+export const ImageThumbnailWrapper = styled.div`
   cursor: pointer;
-  border: 4px solid ${props => (props.isActive ? 'blue' : '#ccc')};
+  border: 4px solid ${props => (props.isActive ? 'blue' : '#eee')};
 `;

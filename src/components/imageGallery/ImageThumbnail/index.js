@@ -1,14 +1,15 @@
 import React from 'react';
 import Image from 'gatsby-image';
-import { ImageThumnailWrapper } from './styles';
+import { ImageThumbnailWrapper } from './styles';
 
 export default function ImageThumbnail({ isActive, onClick, image }) {
-  const handelClick = () => {
+  const handleClick = () => {
     onClick(image);
   };
+
   return (
-    <ImageThumnailWrapper onClick={handelClick} isActive={isActive}>
+    <ImageThumbnailWrapper onClick={handleClick} isActive={isActive}>
       <Image fluid={image.localFile.childImageSharp.fluid} />
-    </ImageThumnailWrapper>
+    </ImageThumbnailWrapper>
   );
 }
