@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import {
   Layout,
   SEO,
-  HomePageCollectionsGrid,
+  HomepageCollectionsGrid,
   FeaturedProducts,
 } from 'components';
 import ProductContext from 'context/ProductContext';
@@ -12,7 +12,7 @@ const IndexPage = () => {
   return (
     <Layout>
       <SEO description="Bouzo store homepage" title="Homepage" />
-      <HomePageCollectionsGrid
+      <HomepageCollectionsGrid
         collections={
           collections.filter(
             collection => collection.title !== 'Featured hats'
