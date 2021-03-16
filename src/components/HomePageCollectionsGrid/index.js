@@ -2,7 +2,7 @@ import React from 'react';
 import { CollectionTile } from '../CollectionTile';
 import { RemainingCollections } from './styles';
 
-export const HomePageCollectionsGrid = ({ collections }) => {
+export const HomepageCollectionsGrid = ({ collections }) => {
   const saleCollection = collections?.find(
     collection => collection.title === 'SALE'
   );

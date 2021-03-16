@@ -4,7 +4,7 @@ import { Button } from '../Button';
 import { ProductQantityAdderWrapper } from './styles';
 import CartContext from 'context/CartContext';
 
-export const ProductQantityAdder = ({ variantId, available }) => {
+export const ProductQuantityAdder = ({ variantId, available }) => {
   const [quantity, setQuantity] = useState(1);
   const { updateLineItem } = useContext(CartContext);
 
