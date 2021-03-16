@@ -1,8 +1,9 @@
 import React from 'react';
-import { Layout, CartContents } from 'components';
+import { Layout, CartContents, SEO } from 'components';
 
 const CartPage = () => (
   <Layout>
+    <SEO description="Bouzo store Cart" title="Cart" />
     <CartContents />
   </Layout>
 );

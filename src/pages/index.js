@@ -9,10 +9,9 @@ import ProductContext from 'context/ProductContext';
 
 const IndexPage = () => {
   const { collections } = useContext(ProductContext);
-  console.log(collections);
   return (
     <Layout>
-      <SEO description="The MadHatter store homepage" title="Homepage" />
+      <SEO description="Bouzo store homepage" title="Homepage" />
       <HomePageCollectionsGrid
         collections={
           collections.filter(

@@ -1,27 +1,28 @@
 import React, { useContext } from 'react';
 import CartContext from 'context/CartContext';
-import { CartItem, CartHeader, CartFooter } from './styles';
-import { QuantityAdjuster } from './../QuantityAdjuster';
+import { CartItem, CartHeader, CartFooter, Footer } from './styles';
+import { QuantityAdjuster } from '../QuantityAdjuster';
 import { RemoveLineItem } from '../RemoveLineItem';
+import { Button } from '../Button';
+import { navigate } from '@reach/router';
 
-export function CartContents() {
+export const CartContents = () => {
   const { checkout, updateLineItem } = useContext(CartContext);
 
-  const handelAdjust = ({ quantity, variantId }) => {
+  const handleAdjustQuantity = ({ quantity, variantId }) => {
     updateLineItem({ quantity, variantId });
   };
 
   return (
     <section>
-      <h1>
-        {checkout.totalPrice === '0.00' ? 'Your Cart is empty' : 'Your Cart'}
-      </h1>
-      <CartHeader>
-        <div>Product</div>
-        <div>Uint price</div>
-        <div>Quantity</div>
-        <div>Amount</div>
-      </CartHeader>
+      {!!checkout?.lineItems.length && (
+        <CartHeader>
+          <div>Product</div>
+          <div>Unit price</div>
+          <div>Quantity</div>
+          <div>Amount</div>
+        </CartHeader>
+      )}
       {checkout?.lineItems?.map(item => (
         <CartItem key={item.variant.id}>
           <div>
@@ -30,24 +31,47 @@ export function CartContents() {
               {item.variant.title === 'Default Title' ? '' : item.variant.title}
             </div>
           </div>
-          <div>{item.variant.price} kr</div>
+          <div>{item.variant.price} Kr</div>
           <div>
-            <QuantityAdjuster item={item} onAdjust={handelAdjust} />
+            <QuantityAdjuster item={item} onAdjust={handleAdjustQuantity} />
           </div>
-          <div>{(item.quantity * item.variant.price).toFixed(2)} kr</div>
+          <div>{(item.quantity * item.variant.price).toFixed(2)} Kr</div>
           <div>
             <RemoveLineItem lineItemId={item.id} />
           </div>
         </CartItem>
       ))}
-      <CartFooter>
+      {!!checkout?.lineItems.length && (
+        <CartFooter>
+          <div>
+            <strong>Total:</strong>
+          </div>
+          <div>
+            <span>{checkout?.totalPrice} Kr</span>
+          </div>
+        </CartFooter>
+      )}
+      {!!checkout?.lineItems.length ? (
+        <h4>You cart</h4>
+      ) : (
+        <h4>You cart is empty</h4>
+      )}
+      <Footer>
         <div>
-          <strong>Total:</strong>
+          <Button onClick={() => navigate(-1)}>Continue shopping</Button>
         </div>
         <div>
-          <span>{checkout?.totalPrice} kr</span>
+          {!!checkout?.lineItems.length && (
+            <Button
+              onClick={() => {
+                window.location.href = checkout.webUrl;
+              }}
+            >
+              Checkout
+            </Button>
+          )}
         </div>
-      </CartFooter>
+      </Footer>
     </section>
   );
-}
+};

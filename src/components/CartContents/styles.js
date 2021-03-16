@@ -4,6 +4,7 @@ export const CartFooter = styled.div`
   display: grid;
   grid-template-columns: 5fr 1fr 40px;
   font-weight: bold;
+
   > div {
     padding: 8px;
     &:first-child {
@@ -16,6 +17,7 @@ export const CartHeader = styled.div`
   grid-template-columns: 2fr 1fr 2fr 1fr 40px;
   border-bottom: 1px solid black;
   font-weight: bold;
+  margin-top: 50px;
   > div {
     padding: 8px;
   }
@@ -37,5 +39,14 @@ export const CartItem = styled.div`
         font-size: 14px;
       }
     }
+  }
+`;
+
+export const Footer = styled.footer`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  > div:last-child {
+    text-align: right;
   }
 `;

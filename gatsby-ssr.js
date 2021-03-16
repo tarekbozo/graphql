@@ -7,7 +7,6 @@ export const wrapRootElement = ({ element }) => (
   <ProductContextProvider>
     <CartContextProvider>{element}</CartContextProvider>
   </ProductContextProvider>
-  //TODO
 );
 
 export const wrapPageElement = ({ element }) => (
