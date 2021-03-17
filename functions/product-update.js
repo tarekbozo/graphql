@@ -1,5 +1,5 @@
 const faunadb = require('faunadb');
-const verifyWebhook = require('shopify-verify-webhook');
+const verifyWebhookIntegrity = require('shopify-verify-webhook');
 const axios = require('axios');
 
 const q = faunadb.query;
@@ -8,7 +8,7 @@ const client = new faunadb.Client({
 });
 
 exports.handler = function (event, context, callback) {
-  const isValid = verifyWebhook(
+  const isValid = verifyWebhookIntegrity(
     process.env.SHOPIFY_WEBHOOK_KEY,
     event.headers['x-shopify-hmac-sha256'],
     event.body
@@ -23,6 +23,7 @@ exports.handler = function (event, context, callback) {
       delete variant.inventory_quantity;
       delete variant.old_inventory_quantity;
     });
+
     const bodyString = JSON.stringify(body);
 
     client
@@ -51,7 +52,8 @@ exports.handler = function (event, context, callback) {
               data: { id, product: bodyString },
             })
           )
-          .than(() => {
+          .then(() => {
+            // call rebuild
             axios.post(process.env.NETLIFY_BUILD_URL);
           })
           .catch(e => {
